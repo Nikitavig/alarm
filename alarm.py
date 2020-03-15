@@ -16,7 +16,7 @@ def start_alarm():
 
 	while True:
 		try:
-			# Задаем парамерты для драйвера
+			# Задаем параметры для драйвера
 			options = Options()
 			# Задаем директорию для сохранения профиля браузера
 			options.add_argument('--user-data-dir=alarm')
@@ -28,9 +28,9 @@ def start_alarm():
 			# Ожидать появления того или иного объекта 10 секунд
 			browser.implicitly_wait(10)
 
-			# Открыть странцу music.youtube
+			# Открыть страницу music.youtube
 			browser.get('https://music.youtube.com/')
-			# Нахать на кнопку с предложкой
+			# Нажать на кнопку "Мой джем"
 			browser.find_element_by_xpath("//a[@title='Мой джем']").click()
 			browser.find_element_by_xpath("//div[@class='circle style-scope paper-spinner-lite']").click()
 			time.sleep(99999)
@@ -44,10 +44,10 @@ def start_alarm():
 def main():
 	"""
 	
-	Основноая main функция
+	Основная main функция
 	"""
 
-	# Разбираем первоначальную строку на чалсы и минуты
+	# Разбираем первоначальную строку на часы и минуты
 	hour = int(TIME_START.split(':')[0])
 	minute = int(TIME_START.split(':')[1])
 
@@ -56,7 +56,7 @@ def main():
 
 	# Устанавливаем дату будильника
 
-	# Временноая переменная под дату и вермя будильника
+	# Временная переменная под дату и время будильника
 	# Забираем год, месяц, день из текущей даты
 	# Часы и минуты устанавливаем из выпаршеных значений
 	temp_time = datetime.datetime(time_now.year, time_now.month, time_now.day, hour, minute)
@@ -66,16 +66,14 @@ def main():
 	if time_now > temp_time:
 		# Добавляем один день
 		time_alarm = datetime.datetime(time_now.year, time_now.month, time_now.day + 1, hour, minute)
-	# Если нет, то время будильника =  временной переменной 
+	# Если нет, то время будильника = временной переменной 
 	else:
 		time_alarm = temp_time
 
-	print(f"Будильник установлене на: {time_alarm}")
+	print(f"Будильник установлен на: {time_alarm}")
 
 	# Ждем времени наступления будильника наступления 
 	while time_alarm > datetime.datetime.today():
-		
-		# print(f"Будильник установлене на: {time_alarm}")
 		print(f"******    ОСТАЛОСЬ    >>> {time_alarm - datetime.datetime.today()}", end='')
 		print('\r', end='')
 
