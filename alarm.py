@@ -1,36 +1,44 @@
+import time
+import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 
-import time
-import datetime
-
-from multiprocessing import Process
 
 TIME_START = '20:51'
 
+
 def start_alarm():
+	"""
+
+	Функция для запуска случайного плейлиста предпочтений и youtube music
+	"""
+
 	while True:
-		# try:
-		options = Options()
-		options.add_argument('--user-data-dir=alarm')
-		options.add_argument('--profile-directory=my_profil')
-		options.add_argument('--start-maximized')
+		try:
+			# Задаем парамерты для драйвера
+			options = Options()
+			# Задаем директорию для сохранения профиля браузера
+			options.add_argument('--user-data-dir=alarm')
+			options.add_argument('--profile-directory=my_profil')
+			# Открыть браузер в полном окное
+			options.add_argument('--start-maximized')
 
-		browser = webdriver.Chrome(chrome_options=options)
-		browser.implicitly_wait(10)
+			browser = webdriver.Chrome(chrome_options=options)
+			# Ожидать появления того или иного объекта 10 секунд
+			browser.implicitly_wait(10)
 
-
-		browser.get('https://music.youtube.com/')
-		# browser.get('https://music.youtube.com/watch?v=anGVuSFJ2w8&list=RDEMzT1XwmFnIup_KYXuc2rUZA')
-		browser.find_element_by_xpath("//a[@title='Мой джем']").click()
-		browser.find_element_by_xpath("//div[@class='circle style-scope paper-spinner-lite']").click()
-		time.sleep(99999)
-		# except Exception as e:
-		# 	print(e)
-		# finally:
-		# 	browser.close()
-
+			# Открыть странцу music.youtube
+			browser.get('https://music.youtube.com/')
+			# Нахать на кнопку с предложкой
+			browser.find_element_by_xpath("//a[@title='Мой джем']").click()
+			browser.find_element_by_xpath("//div[@class='circle style-scope paper-spinner-lite']").click()
+			time.sleep(99999)
+		except Exception as e:
+			print(e)
+		finally:
+			# Закрыть браузер
+			browser.close()
 
 
 def main():
